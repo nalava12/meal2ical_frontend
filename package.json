@@ -8,7 +8,15 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
+    "@date-io/dayjs": "1.x",
     "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/pickers": "^3.2.10",
+    "@ygoe/msgpack": "https://github.com/ygoe/msgpack.js",
+    "clipboard": "^2.0.6",
+    "copy-to-clipboard": "^3.3.1",
+    "dayjs": "^1.8.30",
+    "fontsource-roboto": "^2.2.6",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"
   },
