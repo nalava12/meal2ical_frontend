@@ -17,6 +17,11 @@ export interface Option {
     6?: DayTimeOption;
   };
   includeAllergy?: boolean;
+  includeTypes?: {
+    breakfast?: boolean;
+    lunch?: boolean;
+    dinner?: boolean;
+  }
 }
 
 type MinifiedDayTimeOption = {
@@ -36,6 +41,11 @@ export interface MinifiedOption {
     6?: MinifiedDayTimeOption;
   },
   iA?: boolean;
+  iT?: {
+    b?: boolean;
+    l?: boolean;
+    d?: boolean;
+  }
 }
 
 function objToBase64(object: any) {
@@ -68,6 +78,22 @@ export function urlBuilder(options: Option) {
   }
   if(options.includeAllergy) {
     minifiedOption.iA = options.includeAllergy;
+  }
+  if (options.includeTypes) {
+    minifiedOption.iT = {}
+    for (let types in options.includeTypes) {
+      switch (types) {
+        case 'breakfast':
+          minifiedOption.iT.b = options.includeTypes.breakfast;
+          break;
+        case 'lunch':
+          minifiedOption.iT.l = options.includeTypes.lunch;
+          break;
+        case 'dinner':
+          minifiedOption.iT.d = options.includeTypes.dinner;
+          break;
+      }
+    }
   }
   return location.origin + '/' + objToBase64(minifiedOption);
 }

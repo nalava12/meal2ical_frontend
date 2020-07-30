@@ -47,6 +47,10 @@ export function App() {
   let [customTimeThu, setCustomTimeThu] = React.useState(timeDefault);
   let [customTimeFri, setCustomTimeFri] = React.useState(timeDefault);
 
+  let [includeBreakfast, setIncludeBreakfast] = React.useState(true);
+  let [includeLunch, setIncludeLunch] = React.useState(true);
+  let [includeDinner, setIncludeDinner] = React.useState(true);
+
   let [isCopied, setIsCopied] = React.useState(false);
 
   let today = new Date();
@@ -84,6 +88,18 @@ export function App() {
       })
     }
     option.includeAllergy = includeAllergy;
+    if (!(includeBreakfast && includeLunch && includeDinner)) {
+      option.includeTypes = {}
+      if (!includeBreakfast) {
+        option.includeTypes.breakfast = false;
+      }
+      if (!includeLunch) {
+        option.includeTypes.lunch = false;
+      }
+      if (!includeDinner) {
+        option.includeTypes.dinner = false;
+      }
+    }
     return option;
   }
 
@@ -102,6 +118,21 @@ export function App() {
       <Button variant="contained" color="primary" disabled={!customTimeEnabled} onClick={() => setCustomTimeModal(true)}>
         설정
       </Button>
+      <br />
+      <Typography variant="overline">포함되는 급식 종류</Typography>
+      <br />
+      <FormControlLabel
+        control={<Checkbox checked={includeBreakfast} onClick={() => setIncludeBreakfast(!includeBreakfast)} />}
+        label="조식"
+      />
+      <FormControlLabel
+        control={<Checkbox checked={includeLunch} onClick={() => setIncludeLunch(!includeLunch)} />}
+        label="중식"
+      />
+      <FormControlLabel
+        control={<Checkbox checked={includeDinner} onClick={() => setIncludeDinner(!includeDinner)} />}
+        label="석식"
+      />
       <TextField
         style={{
           marginTop: '10px'
